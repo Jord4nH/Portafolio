@@ -41,7 +41,7 @@ const Navbar = () => {
           ))}
           <li>
             <a
-              href="https://github.com/jordanhinojoza"
+              href="https://github.com/Jord4nH"
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10 px-4 py-1.5 rounded-full font-mono transition-all"
