@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-// ✏️ EDITA TUS REDES SOCIALES AQUÍ
 const SOCIAL_LINKS = [
   {
     name: "GitHub",
@@ -43,21 +42,53 @@ const SOCIAL_LINKS = [
     color: "hover:text-pink-400 hover:border-pink-400/40",
   },
 ];
- 
+
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [sent, setSent] = useState(false);
- 
+  const [status, setStatus] = useState("idle"); // idle | sending | success | error
+
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
- 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSent(true);
-    setTimeout(() => setSent(false), 4000);
-    setForm({ name: "", email: "", message: "" });
+    setStatus("sending");
+
+    try {
+      const res = await fetch("https://formspree.io/f/maqkgwkg", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      if (res.ok) {
+        setStatus("success");
+        setForm({ name: "", email: "", message: "" });
+        setTimeout(() => setStatus("idle"), 5000);
+      } else {
+        setStatus("error");
+        setTimeout(() => setStatus("idle"), 5000);
+      }
+    } catch {
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 5000);
+    }
   };
- 
+
+  const buttonLabel = {
+    idle:    "Enviar mensaje →",
+    sending: "Enviando...",
+    success: "✓ Mensaje enviado",
+    error:   "✗ Error, intenta de nuevo",
+  };
+
+  const buttonClass = {
+    idle:    "bg-cyan-500 hover:bg-cyan-400 text-slate-950",
+    sending: "bg-slate-600 text-slate-400 cursor-not-allowed",
+    success: "bg-emerald-500 text-white",
+    error:   "bg-red-500 text-white",
+  };
+
   return (
     <section id="contact" className="py-24 px-6">
       <div className="max-w-4xl mx-auto">
@@ -72,7 +103,7 @@ const Contact = () => {
             No dudes en escribirme.
           </p>
         </div>
- 
+
         <div className="grid md:grid-cols-2 gap-10">
           <form onSubmit={handleSubmit} className="space-y-4">
             {[
@@ -92,7 +123,7 @@ const Contact = () => {
                 />
               </div>
             ))}
- 
+
             <div>
               <label className="block text-xs text-slate-500 font-mono mb-1">Mensaje</label>
               <textarea
@@ -105,15 +136,16 @@ const Contact = () => {
                 className="w-full bg-slate-800/60 border border-slate-700 text-slate-300 placeholder-slate-600 rounded-lg px-4 py-2.5 text-sm font-mono focus:outline-none focus:border-cyan-500/60 transition-colors resize-none"
               />
             </div>
- 
+
             <button
               type="submit"
-              className="w-full py-3 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold rounded-lg transition-all font-mono text-sm hover:shadow-lg hover:shadow-cyan-500/30"
+              disabled={status === "sending"}
+              className={`w-full py-3 font-semibold rounded-lg transition-all font-mono text-sm ${buttonClass[status]}`}
             >
-              {sent ? "✓ Mensaje enviado" : "Enviar mensaje →"}
+              {buttonLabel[status]}
             </button>
           </form>
- 
+
           <div className="flex flex-col justify-center gap-3">
             <p className="text-slate-500 font-mono text-xs uppercase tracking-wider">
               También puedes encontrarme en:
@@ -136,5 +168,5 @@ const Contact = () => {
     </section>
   );
 };
- 
+
 export default Contact;
