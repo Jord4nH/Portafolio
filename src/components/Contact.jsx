@@ -23,28 +23,6 @@ const SOCIAL_LINKS = [
     color: "hover:text-blue-400 hover:border-blue-400/40",
   },
   {
-    name: "jordanhinojoza15@gmail.com",
-    url: "mailto:jordanhinojoza15@gmail.com",
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5 fill-none stroke-current stroke-2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-        <polyline points="22,6 12,13 2,6" />
-      </svg>
-    ),
-    color: "hover:text-cyan-400 hover:border-cyan-400/40",
-  },
-  {
-    name: "jhinojozav@unemi.edu.ec",
-    url: "mailto:jhinojozav@unemi.edu.ec",
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5 fill-none stroke-current stroke-2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-        <polyline points="22,6 12,13 2,6" />
-      </svg>
-    ),
-    color: "hover:text-cyan-400 hover:border-cyan-400/40",
-  },
-  {
     name: "+593 989 650 086 (WhatsApp)",
     url: "https://wa.me/593989650086",
     icon: (
